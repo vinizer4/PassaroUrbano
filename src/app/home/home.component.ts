@@ -16,8 +16,16 @@ export class HomeComponent {
     this.ngOnInit()
   }
 
-  ngOnInit() {
-    this.ofertas = this.ofertasService.getOfertas()
-    console.log(this.ofertas)
+  async ngOnInit() {
+    // this.ofertas = this.ofertasService.getOfertas()
+    // console.log(this.ofertas)
+
+    await this.ofertasService.getOfertas()
+      .then((ofertas: any) => {
+        this.ofertas = ofertas
+      })
+      .catch((param: any) => {
+        console.log(param)
+      })
   }
 }
