@@ -6,24 +6,24 @@ import 'rxjs';
 
 @Injectable()
 export class OfertasService {
-  URL = 'http://localhost:3000/ofertas?destaque=true';
+    URL = 'http://localhost:3000/ofertas?destaque=true';
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  public getOfertas(): Promise<Oferta[] | undefined> {
-    return this.http.get<Oferta[]>(this.URL)
-      .toPromise()
-      .then(function (resposta) {
-        console.log(resposta);
-        return resposta;
-      });
-  }
+    public getOfertas(): Promise<Oferta[] | undefined> {
+        return this.http.get<Oferta[]>(this.URL)
+            .toPromise()
+            .then(function (resposta) {
+                console.log(resposta);
+                return resposta;
+            });
+    }
 
-  public getOfertasPorCategoria(categoria: string): Promise<Oferta[]> {
-    return this.http.get<Oferta[]>(
-      `http://localhost:3000/ofertas?categoria=${categoria}`)
-      .toPromise()
-      .then()
-  }
+    public getOfertasPorCategoria(categoria: string): Promise<Oferta[]> {
+        return this.http.get<Oferta[]>(
+            `http://localhost:3000/ofertas?categoria=${categoria}`)
+            .toPromise()
+            .then((resposta: any) => resposta)
+    }
 }
