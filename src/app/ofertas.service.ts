@@ -3,16 +3,16 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
 import 'rxjs';
+import {URL_API}    from "./app.api";
 
 @Injectable()
 export class OfertasService {
-    URL = 'http://localhost:3000/ofertas?destaque=true';
 
     constructor(private http: HttpClient) {
     }
 
     public getOfertas(): Promise<Oferta[] | undefined> {
-        return this.http.get<Oferta[]>(this.URL)
+        return this.http.get<Oferta[]>(`${URL_API}?destaque=true`)
             .toPromise()
             .then(function (resposta) {
                 console.log(resposta);
@@ -22,8 +22,16 @@ export class OfertasService {
 
     public getOfertasPorCategoria(categoria: string): Promise<Oferta[]> {
         return this.http.get<Oferta[]>(
-            `http://localhost:3000/ofertas?categoria=${categoria}`)
+            `${URL_API}?categoria=${categoria}`)
             .toPromise()
             .then((resposta: any) => resposta)
+    }
+
+    public getOfertaPorId(id: number): Promise<Oferta> {
+        return this.http.get(`${URL_API}?id=${id}`)
+            .toPromise()
+            .then((resposta: any) => {
+                return resposta[0]
+            })
     }
 }
